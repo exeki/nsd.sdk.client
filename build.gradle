@@ -12,8 +12,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.slf4j:slf4j-api:2.0.9'
-
     implementation files('libs/nsd_sdk_data-1.0.0.jar')
     implementation files('libs/nsd_basic_api_connector-1.0.0.jar')
 
@@ -40,4 +38,12 @@ compileJava.options.encoding = 'UTF-8'
 
 application {
     mainClassName = 'MainKt'
+}
+
+jar {
+    duplicatesStrategy = 'exclude'
+    manifest {}
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
