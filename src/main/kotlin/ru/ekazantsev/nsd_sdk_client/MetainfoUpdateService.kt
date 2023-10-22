@@ -16,12 +16,11 @@ import java.util.*
 /**
  * Служба, направленная на получение и помещение в хранилище метаинформации из инсталляции
  * @param connectorParams  параметры коннектора, из них будет извлечена и сохранена инсталляция
- * @param metaClassCodes коды метаклассов, которые будут затянуты и сохранены в хранилище
+ * @param db экземпляр доступа к базе данных
  */
 class MetainfoUpdateService(
     connectorParams: ConnectorParams,
-    private val db: DbAccess,
-    private val metaClassCodes: MutableSet<String>
+    private val db: DbAccess
 ) {
 
     private var irrelevanceTime: Int = 0
@@ -30,16 +29,21 @@ class MetainfoUpdateService(
     private val metaWriter = MetaClassWriter(db)
     private val attrWriter = AttributeWriter(db)
     private val groupWriter = AttributeGroupWriter(db)
-    private val constantMeta: Set<String> = setOf("file")
+    private val metaClassCodes: MutableSet<String> = mutableSetOf("catalogItem", "abstractSysObj", "abstractBO")
     private val installation: Installation = InstallationWriter(db).createOrUpdate(connectorParams)
     private val fetchedMeta: MutableSet<String> = mutableSetOf()
 
     init {
         this.connector = FakeApiConnector(connectorParams)
         this.connector.setInfoLogging(false)
-        this.metaClassCodes.addAll(constantMeta)
     }
 
+    /**
+     * Установить отсечку по доте последнего обновления метакласса
+     * если метакласс обновлен позже чем текущая дата минус указанное количество минут
+     * то его обновление не произойдет
+     * @param minutes количество минут для отсечки
+     */
     fun setIrrelevanceTime(minutes: Int): MetainfoUpdateService {
         this.irrelevanceTime = minutes
         return this
@@ -47,6 +51,7 @@ class MetainfoUpdateService(
 
     /**
      * Затянуть и метакласс и все его типы
+     * @param code код метакласса, который нужно запросить и записать
      */
     private fun fetchMetaClassBranch(code: String) {
         val existed = db.metaClassDao.queryForEq("fullCode", code).lastOrNull()
@@ -93,6 +98,17 @@ class MetainfoUpdateService(
      * Затянуть метаинформацию по инсталляции
      */
     fun fetchMeta() {
+        while (metaClassCodes.size != 0) {
+            fetchMetaClassBranch(metaClassCodes.first())
+        }
+    }
+
+    /**
+     * Затянуть метаинформацию по инсталляции
+     * @param additionalMetaClassCodes дополнительные коды метаклассов
+     */
+    fun fetchMeta(additionalMetaClassCodes : Set<String>) {
+        metaClassCodes.addAll(additionalMetaClassCodes)
         while (metaClassCodes.size != 0) {
             fetchMetaClassBranch(metaClassCodes.first())
         }
