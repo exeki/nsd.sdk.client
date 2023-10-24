@@ -3,7 +3,7 @@ package tests
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import ru.kazantsev.nsd.sdk_data.DbAccess
+import ru.kazantsev.nsd.sdk.data.DbAccess
 import ru.kazantsev.nsd.sdk.client.nsd_connector.FakeApiConnector
 import ru.kazantsev.nsd.basic_api_connector.ConnectorParams
 

@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.10"
 }
 
-group = "ru.kazantsev.nsd"
+group = "ru.kazantsev.nsd.sdk"
 version = "1.0.0"
 
 tasks {
