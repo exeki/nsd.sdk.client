@@ -58,8 +58,8 @@ repositories {
 }
 
 dependencies {
-    api("ru.ekazantsev:nsd_sdk_data:1.0.0")
-    api("ru.ekazantsev:nsd_basic_api_connector:1.0.0")
+    api("ru.kazantsev.nsd:sdk_data:1.0.0")
+    api("ru.kazantsev.nsd:basic_api_connector:1.0.0")
     implementation("org.slf4j:slf4j-api:2.0.9")
 
     testImplementation("ch.qos.logback:logback-classic:1.4.11")
