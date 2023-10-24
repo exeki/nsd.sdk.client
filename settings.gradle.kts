@@ -1,1 +1,1 @@
-rootProject.name = "nsd_sdk_client"
+rootProject.name = "sdk_client"
