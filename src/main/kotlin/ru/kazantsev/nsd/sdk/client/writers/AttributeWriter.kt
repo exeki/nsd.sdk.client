@@ -1,10 +1,8 @@
-package ru.ekazantsev.nsd_sdk_client.writers
+package ru.kazantsev.nsd.sdk.client.writers
 
-import ru.ekazantsev.nsd_sdk_data.DbAccess
-import ru.ekazantsev.nsd_sdk_data.dto.Attribute
-import ru.ekazantsev.nsd_sdk_data.dto.AttributeType
-import ru.ekazantsev.nsd_sdk_data.dto.MetaClass
-import ru.ekazantsev.nsd_sdk_client.nsd_connector.dto.AttributeDto
+import ru.kazantsev.nsd.sdk.data.dto.*
+import ru.kazantsev.nsd.sdk.data.DbAccess
+import ru.kazantsev.nsd.sdk.client.nsd_connector.dto.AttributeDto
 
 /**
  * Служба, записывающая аттрибуты в хранилище

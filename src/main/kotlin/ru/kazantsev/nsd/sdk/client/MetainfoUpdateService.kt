@@ -1,15 +1,15 @@
-package ru.ekazantsev.nsd_sdk_client
+package ru.kazantsev.nsd.sdk.client
 
 import org.slf4j.LoggerFactory
-import ru.ekazantsev.nsd_sdk_data.DbAccess
-import ru.ekazantsev.nsd_sdk_client.writers.AttributeGroupWriter
-import ru.ekazantsev.nsd_sdk_client.writers.AttributeWriter
-import ru.ekazantsev.nsd_sdk_client.writers.InstallationWriter
-import ru.ekazantsev.nsd_sdk_client.writers.MetaClassWriter
-import ru.ekazantsev.nsd_sdk_client.nsd_connector.FakeApiConnector
-import ru.ekazantsev.nsd_basic_api_connector.ConnectorParams
-import ru.ekazantsev.nsd_basic_api_connector.HttpException
-import ru.ekazantsev.nsd_sdk_data.dto.Installation
+import ru.kazantsev.nsd.sdk.data.DbAccess
+import ru.kazantsev.nsd.sdk.client.writers.AttributeGroupWriter
+import ru.kazantsev.nsd.sdk.client.writers.AttributeWriter
+import ru.kazantsev.nsd.sdk.client.writers.InstallationWriter
+import ru.kazantsev.nsd.sdk.client.writers.MetaClassWriter
+import ru.kazantsev.nsd.sdk.client.nsd_connector.FakeApiConnector
+import ru.kazantsev.nsd.basic_api_connector.ConnectorParams
+import ru.kazantsev.nsd.basic_api_connector.HttpException
+import ru.kazantsev.nsd.sdk.data.dto.Installation
 import java.util.*
 
 //TODO сделать удаление и архивацию метаклассов и полей

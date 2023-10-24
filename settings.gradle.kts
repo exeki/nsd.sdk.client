@@ -1,1 +1,1 @@
-rootProject.name = "sdk_client"
+rootProject.name = "client"

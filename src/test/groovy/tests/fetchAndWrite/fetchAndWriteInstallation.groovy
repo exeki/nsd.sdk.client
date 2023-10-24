@@ -1,6 +1,6 @@
 package tests.fetchAndWrite
 
-import ru.ekazantsev.nsd_sdk_client.MetainfoUpdateService
+import ru.kazantsev.nsd.sdk.client.MetainfoUpdateService
 
 import static tests.TestUtils.*
 

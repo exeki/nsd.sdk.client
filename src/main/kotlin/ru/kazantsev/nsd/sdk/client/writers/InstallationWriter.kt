@@ -1,8 +1,9 @@
-package ru.ekazantsev.nsd_sdk_client.writers
+package ru.kazantsev.nsd.sdk.client.writers
 
-import ru.ekazantsev.nsd_sdk_data.dto.Installation
-import ru.ekazantsev.nsd_basic_api_connector.ConnectorParams
-import ru.ekazantsev.nsd_sdk_data.DbAccess
+import ru.kazantsev.nsd.basic_api_connector.ConnectorParams
+import ru.kazantsev.nsd.sdk.data.dto.*
+import ru.kazantsev.nsd.sdk.data.DbAccess
+
 import java.util.Date
 
 /**
