@@ -23,13 +23,17 @@ class MetainfoUpdateService(
     private val db: DbAccess
 ) {
 
+    companion object {
+        private val DEFAULT_CODES: MutableSet<String> = mutableSetOf("catalogItem", "abstractSysObj", "abstractBO")
+    }
+
     private var irrelevanceTime: Int = 0
     private val logger = LoggerFactory.getLogger(javaClass)
     private val connector: FakeApiConnector
     private val metaWriter = MetaClassWriter(db)
     private val attrWriter = AttributeWriter(db)
     private val groupWriter = AttributeGroupWriter(db)
-    private val metaClassCodes: MutableSet<String> = mutableSetOf("catalogItem", "abstractSysObj", "abstractBO")
+    private val metaClassCodes: MutableSet<String> = mutableSetOf()
     private val installation: Installation = InstallationWriter(db).createOrUpdate(connectorParams)
     private val fetchedMeta: MutableSet<String> = mutableSetOf()
 
@@ -95,20 +99,22 @@ class MetainfoUpdateService(
     }
 
     /**
-     * Затянуть метаинформацию по инсталляции
+     * Затянуть всю метаинформацию по инсталляции
      */
     fun fetchMeta() {
+        metaClassCodes.addAll(DEFAULT_CODES)
         while (metaClassCodes.size != 0) {
             fetchMetaClassBranch(metaClassCodes.first())
         }
     }
 
     /**
-     * Затянуть метаинформацию по инсталляции
-     * @param additionalMetaClassCodes дополнительные коды метаклассов
+     * Затянуть конкретную метаинформацию по инсталляции
+     * @param targetMetaClassCodes дополнительные коды метаклассов
      */
-    fun fetchMeta(additionalMetaClassCodes : Set<String>) {
-        metaClassCodes.addAll(additionalMetaClassCodes)
+    fun fetchMeta(targetMetaClassCodes: Set<String>) {
+        fetchedMeta.addAll(db.metaClassDao.queryForEq("installation_id", installation.id).map { it.fullCode })
+        metaClassCodes.addAll(targetMetaClassCodes)
         while (metaClassCodes.size != 0) {
             fetchMetaClassBranch(metaClassCodes.first())
         }
